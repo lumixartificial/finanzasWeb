@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMIX Finanzas - Plataforma de Gestión de Cobranzas</title>
+    
+    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons --><script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Font: Inter --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Estilos personalizados inspirados en tus Apps --><style>
+        :root {
+            /* Paleta de colores extraída de tus apps */
+            --bg: #020617;
+            --surface: #0f172a;
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --border-color: #1e293b;
+            
+            /* Acentos de color de tus apps */
+            --accent-purple: #6f42c1;
+            --accent-purple-darker: #5a349c;
+            --accent-blue: #3b82f6;
+            --accent-green: #22c55e;
+            --danger-color: #ef4444;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            /* Espacio para el header pegajoso */
+            scroll-padding-top: 80px; 
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Clases de Tailwind personalizadas (opcional, pero ayuda a la coherencia) */
+        .bg-surface { background-color: var(--surface); }
+        .bg-accent-purple { background-color: var(--accent-purple); }
+        .hover\:bg-accent-purple-darker:hover { background-color: var(--accent-purple-darker); }
+        .text-accent-purple { color: var(--accent-purple); }
+        .text-accent-blue { color: var(--accent-blue); }
+        .text-accent-green { color: var(--accent-green); }
+        .border-borderColor { border-color: var(--border-color); }
+        .text-primary { color: var(--text-primary); }
+        .text-secondary { color: var(--text-secondary); }
+
+        /* Efecto de gradiente en el texto (para el Héroe) */
+        .gradient-text {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- INICIO: Estilos para el fondo animado del Hero --- */
+        #hero-background-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Detrás del contenido */
+            opacity: 0.3; /* Sutil, para no competir con el texto */
+        }
+        /* --- FIN: Estilos para el fondo animado del Hero --- */
+
+        /* --- INICIO: Estilos para el fondo animado de la sección Seguridad --- */
+        #security-background-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.2; /* Aún más sutil que el hero */
+        }
+        /* --- FIN: Estilos para el fondo animado de la sección Seguridad --- */
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header --><header class="bg-surface/80 backdrop-blur-md sticky top-0 z-50 border-b border-borderColor">
+        <nav class="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo --><div class="flex-shrink-0 flex items-center">
+                    <img class="h-10 w-auto" src="https://firebasestorage.googleapis.com/v0/b/lumix-financas-app.firebasestorage.app/o/LOGO---LUMIX-FINANZAS-REDUCIDO.png?alt=media&token=0b4c34d2-f2e3-44b3-a380-7aadfb9c0991" alt="LUMIX Logo">
+                    <span class="text-primary text-2xl font-bold ml-3">Lumix Finanzas</span>
+                </div>
+                
+                <!-- Navegación Desktop --><div class="hidden md:flex md:items-center md:space-x-8">
+                    <a href="#features" class="text-secondary hover:text-primary font-medium">Características</a>
+                    <a href="#security" class="text-secondary hover:text-primary font-medium">Seguridad</a>
+                    <a href="#ecosystem" class="text-secondary hover:text-primary font-medium">Apps</a>
+                    <a href="#functions" class="text-secondary hover:text-primary font-medium">Funciones</a>
+                </div>
+                
+                <!-- CTA y Menú Móvil --><div class="flex items-center">
+                    <a href="https://wa.me/551152862580" target="_blank" rel="noopener noreferrer" class="hidden md:inline-flex items-center justify-center bg-accent-purple hover:bg-accent-purple-darker text-white font-semibold py-2 px-5 rounded-lg transition-colors shadow-lg">
+                        Solicitar Demo
+                    </a>
+                    <!-- Botón Menú Móvil --><button id="mobile-menu-button" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-secondary hover:text-primary hover:bg-surface focus:outline-none">
+                        <span class="sr-only">Abrir menú</span>
+                        <i data-lucide="menu" class="block h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Menú Móvil (oculto por defecto) --><div id="mobile-menu" class="md:hidden hidden border-t border-borderColor">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#features" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-primary hover:bg-surface">Características</a>
+                <a href="#security" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-primary hover:bg-surface">Seguridad</a>
+                <a href="#ecosystem" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-primary hover:bg-surface">Apps</a>
+                <a href="#functions" class="block px-3 py-2 rounded-md text-base font-medium text-secondary hover:text-primary hover:bg-surface">Funciones</a>
+                <a href="https://wa.me/551152862580" target="_blank" rel="noopener noreferrer" class="block px-3 py-2 rounded-md text-base font-medium bg-accent-purple text-white">Solicitar Demo</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content --><main>
+        <!-- Hero Section --><section class="pt-12 pb-0 md:pt-8 relative overflow-hidden" id="hero-section">
+            
+            <!-- Canvas para el fondo animado del Hero --><canvas id="hero-background-canvas"></canvas>
+
+            <div class="relative z-10">
+                <!-- MODIFICACIÓN: 1. Vuelto a centrado vertical (items-center)
+                                     2. Aumentado padding lateral (lg:px-16) --><div class="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    
+                    <!-- Columna 1: Texto y CTA -->
+                    <!-- MODIFICACIÓN: 1. Añadido padding izquierdo (lg:pl-12) para moverlo a la derecha
+                                     2. Eliminado padding inferior (lg:pb-8) que ya no es necesario --><div class="text-center lg:text-left lg:pl-12">
+                        
+                        <!-- MODIFICACIÓN: Título con jerarquía visual. La segunda línea es más grande. --><h1 class="font-extrabold tracking-tight">
+                            <span class="block text-primary text-3xl md:text-4xl">La Nueva Era de la</span>
+                            <span class="block gradient-text text-6xl md:text-7xl mt-1">Gestión de Cobranzas</span>
+                        </h1>
+                        
+                        <!-- MODIFICACIÓN: max-w-2xl a max-w-xl --><p class="mt-6 max-w-xl mx-auto lg:mx-0 text-lg md:text-xl text-secondary">
+                            Presentamos LUMIX, el sistema de gestión de cobranzas más sofisticado y seguro del mercado. Una plataforma diseñada para maximizar la rentabilidad, blindar sus operaciones y optimizar cada faceta de su negocio.
+                        </p>
+
+                        <div class="mt-10 flex flex-col justify-center items-center lg:items-start gap-y-4">
+                            <a href="https://wa.me/551152862580" target="_blank" rel="noopener noreferrer" class="bg-accent-purple hover:bg-accent-purple-darker text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-lg text-lg">
+                                Solicitar Demo
+                            </a>
+                            <p class="text-secondary font-medium text-base">
+                                Pruebe nuestra app
+                                <span class="text-primary font-semibold">completamente gratis</span>
+                                por 5 días.
+                            </p>
+                        </div>
+                    </div> <!-- Fin Columna 1 --><!-- Columna 2: Imagen de la Mascota --><div class="mt-12 lg:mt-0 flex justify-center">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/lumix-financas-app.firebasestorage.app/o/Mascote-1.png?alt=media&token=6e8f13a2-c030-4119-af21-880a771e3e48" alt="Mascota Lumix Finanzas" class="w-full max-w-md h-auto">
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Contabilidad y Finanzas --><section id="accounting" class="py-20 bg-surface border-y border-borderColor">
+            <div class="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-primary">
+                        Contabilidad y Finanzas de Nivel Superior
+                    </h2>
+                    <p class="mt-4 text-lg text-secondary">
+                        El motor financiero de LUMIX está diseñado para la precisión absoluta, calculando cada transacción en tiempo real.
+                    </p>
+                </div>
+                
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Feature Card 1 --><div class="bg-bg p-6 rounded-xl border border-borderColor flex flex-col items-center text-center">
+                        <i data-lucide="wallet" class="w-10 h-10 text-accent-blue"></i>
+                        <h3 class="mt-4 text-xl font-semibold text-primary">Capital en Manos</h3>
+                        <p class="mt-2 text-secondary">Cálculo automático y exacto del capital que cada cobrador debe tener.</p>
+                    </div>
+                    <!-- Feature Card 2 --><div class="bg-bg p-6 rounded-xl border border-borderColor flex flex-col items-center text-center">
+                        <i data-lucide="arrow-left-right" class="w-10 h-10 text-accent-green"></i>
+                        <h3 class="mt-4 text-xl font-semibold text-primary">Gestión de Flujo de Caja</h3>
+                        <p class="mt-2 text-secondary">Registro de gastos y envío de liquidaciones para aprobación del admin.</p>
+                    </div>
+                    <!-- Feature Card 3 --><div class="bg-bg p-6 rounded-xl border border-borderColor flex flex-col items-center text-center">
+                        <i data-lucide="trending-down" class="w-10 h-10 text-danger-color"></i>
+                        <h3 class="mt-4 text-xl font-semibold text-primary">Cálculo de Morosidad</h3>
+                        <p class="mt-2 text-secondary">Recálculo diario del estado de préstamos (Pendiente, Pagado, Atrasado).</p>
+                    </div>
+                    <!-- Feature Card 4 --><div class="bg-bg p-6 rounded-xl border border-borderColor flex flex-col items-center text-center">
+                        <i data-lucide="file-text" class="w-10 h-10 text-accent-purple"></i>
+                        <h3 class="mt-4 text-xl font-semibold text-primary">Reportes Detallados</h3>
+                        <p class="mt-2 text-secondary">Genere y exporte reportes en PDF filtrados por cobrador y rango de fechas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Funciones Clave (Seguridad) --><section id="security" class="py-20 relative overflow-hidden">
+            <!-- Canvas para el fondo animado de Seguridad --><canvas id="security-background-canvas"></canvas>
+
+            <!-- Contenido con z-index para estar al frente --><div class="relative z-10">
+                <div class="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-primary">
+                            Funciones Clave de Innovación y Seguridad
+                        </h2>
+                        <p class="mt-4 text-lg text-secondary">
+                            Lo que nos separa de la competencia es nuestra dedicación a la seguridad proactiva y la inteligencia de datos.
+                        </p>
+                    </div>
+
+                    <!-- 1. Blacklist --><div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="inline-flex items-center justify-center w-20 h-20 bg-danger-color/10 text-danger-color rounded-full mb-6 ring-2 ring-danger-color/30">
+                                <i data-lucide="shield-off" class="w-12 h-12"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-primary">1. Sistema de Lista Negra (Blacklist) Global</h3>
+                            <p class="mt-4 text-lg text-secondary">
+                                Nuestra diferenciación más poderosa. LUMIX protege activamente su capital de estafadores y clientes morosos conocidos en todo el ecosistema.
+                            </p>
+                            <ul class="mt-6 space-y-4 text-secondary">
+                                <li class="flex items-start">
+                                    <i data-lucide="database" class="w-5 h-5 text-accent-blue mr-3 flex-shrink-0 mt-1"></i>
+                                    <span><strong>Base de Datos Global:</strong> Alimentada con miles de registros de clientes reportados por fraude o morosidad grave por otras empresas.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="alert-triangle" class="w-5 h-5 text-accent-blue mr-3 flex-shrink-0 mt-1"></i>
+                                    <span><strong>Alerta Instantánea:</strong> Al registrar un nuevo cliente, el cobrador recibe una advertencia inmediata si se encuentra una coincidencia en la lista negra.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="order-first lg:order-last flex justify-center items-center">
+                            <i data-lucide="shield-x" class="w-40 h-40 text-danger-color opacity-30"></i>
+                        </div>
+                    </div>
+
+                    <!-- 2. Reconocimiento Facial --><div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="inline-flex items-center justify-center w-20 h-20 bg-accent-blue/10 text-accent-blue rounded-full mb-6 ring-2 ring-accent-blue/30">
+                                <i data-lucide="scan-face" class="w-12 h-12"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-primary">2. Verificación por Reconocimiento Facial (Prueba de Vida)</h3>
+                            <p class="mt-4 text-lg text-secondary">
+                                Combatimos el fraude de identidad con verificación biométrica de dos pasos para solicitudes de nuevos préstamos o refinanciamiento.
+                            </p>
+                            <ul class="mt-6 space-y-4 text-secondary">
+                                <li class="flex items-start">
+                                    <i data-lucide="camera" class="w-5 h-5 text-accent-blue mr-3 flex-shrink-0 mt-1"></i>
+                                    <span><strong>Foto Base y Desafío:</strong> El cliente debe tomar una "Foto Base" en su primer login y completar un "Desafío de Selfie" (ej. sonreír) para nuevas solicitudes.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="user-check" class="w-5 h-5 text-accent-blue mr-3 flex-shrink-0 mt-1"></i>
+                                    <span><strong>Aprobación del Admin:</strong> El administrador compara ambas fotos lado a lado para garantizar que es el cliente real quien solicita el préstamo.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="order-first lg:order-last flex justify-center items-center">
+                            <i data-lucide="fingerprint" class="w-40 h-40 text-accent-blue opacity-30"></i>
+                        </div>
+                    </div>
+
+                    <!-- 3. GPS Avanzado --><div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="inline-flex items-center justify-center w-20 h-20 bg-accent-green/10 text-accent-green rounded-full mb-6 ring-2 ring-accent-green/30">
+                                <i data-lucide="map-pin" class="w-12 h-12"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-primary">3. Control y Optimización por GPS Avanzado</h3>
+                            <p class="mt-4 text-lg text-secondary">
+                                Nuestra solución GPS es dual: ofrece control total al administrador y rutas inteligentes al cobrador.
+                            </p>
+                            <ul class="mt-6 space-y-4 text-secondary">
+                                <li class="flex items-start">
+                                    <i data-lucide="map" class="w-5 h-5 text-accent-blue mr-3 flex-shrink-0 mt-1"></i>
+                                    <span><strong>Control Total (Admin):</strong> Vea la ubicación exacta de todo su equipo en un mapa en vivo y tome decisiones estratégicas.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="navigation" class="w-5 h-5 text-accent-blue mr-3 flex-shrink-0 mt-1"></i>
+                                    <span><strong>Ruta Inteligente (Cobrador):</strong> La app optimiza la ruta diaria basándose en la ubicación actual, proximidad y horarios de cobro.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="order-first lg:order-last flex justify-center items-center">
+                            <i data-lucide="route" class="w-40 h-40 text-accent-green opacity-30"></i>
+                        </div>
+                    </div>
+
+                    <!-- 4. Comunidad Interna --><div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <div class="flex flex-col items-center text-center">
+                            <div class="inline-flex items-center justify-center w-20 h-20 bg-accent-purple/10 text-accent-purple rounded-full mb-6 ring-2 ring-accent-purple/30">
+                                <i data-lucide="users" class="w-12 h-12"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-primary">4. Comunidad Interna y Ecosistema Seguro</h3>
+                            <p class="mt-4 text-lg text-secondary">
+                                Incluimos una red social privada y exclusiva para administradores de todas las empresas que utilizan LUMIX, transformando la competencia en colaboración de seguridad.
+                            </p>
+                            <ul class="mt-6 space-y-4 text-secondary">
+                                <li class="flex items-start">
+                                    <i data-lucide="message-square" class="w-5 h-5 text-accent-blue mr-3 flex-shrink-0 mt-1"></i>
+                                    <span><strong>Muro Interactivo:</strong> Publique avisos de fraude, comparta comunicados, comente y dé "like" a las publicaciones de otros administradores.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="shield-check" class="w-5 h-5 text-accent-blue mr-3 flex-shrink-0 mt-1"></i>
+                                    <span><strong>Inteligencia Colectiva:</strong> ¿Un cobrador problemático cambió de empresa? ¿Una nueva estafa? Alerte a la comunidad y reduzca las pérdidas para todos.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="order-first lg:order-last flex justify-center items-center">
+                            <i data-lucide="network" class="w-40 h-40 text-accent-purple opacity-30"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Ecosistema de 3 Apps --><section id="ecosystem" class="py-20 bg-surface border-y border-borderColor">
+            <div class="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-primary">
+                        Un Ecosistema Integral de 3 Aplicaciones
+                    </h2>
+                    <p class="mt-4 text-lg text-secondary">
+                        LUMIX opera a través de tres aplicaciones interconectadas que cubren todas las necesidades de su operación.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- App Administrador --><div class="bg-bg border border-borderColor rounded-xl p-8 transform transition-transform duration-300 hover:-translate-y-2 flex flex-col items-center text-center">
+                        <div class="inline-flex items-center justify-center w-14 h-14 bg-accent-blue/10 text-accent-blue rounded-full mb-6">
+                            <i data-lucide="layout-dashboard" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary">App del Administrador</h3>
+                        <p class="text-lg font-semibold text-accent-blue mt-1">(El Cerebro)</p>
+                        <p class="mt-4 text-secondary">
+                            Gestión global de contabilidad, cobradores, clientes, aprobaciones de seguridad y configuración total del sistema. Su centro de control.
+                        </p>
+                    </div>
+                    
+                    <!-- App Cobrador --><div class="bg-bg border border-borderColor rounded-xl p-8 transform transition-transform duration-300 hover:-translate-y-2 flex flex-col items-center text-center">
+                        <div class="inline-flex items-center justify-center w-14 h-14 bg-accent-purple/10 text-accent-purple rounded-full mb-6">
+                            <i data-lucide="smartphone" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary">App del Cobrador</h3>
+                        <p class="text-lg font-semibold text-accent-purple mt-1">(La Herramienta de Campo)</p>
+                        <p class="mt-4 text-secondary">
+                            Ruta optimizada por GPS, gestión de clientes con multi-préstamo, registro de pagos (efectivo, digital), gastos y envío de liquidaciones.
+                        </p>
+                    </div>
+                    
+                    <!-- App Cliente --><div class="bg-bg border border-borderColor rounded-xl p-8 transform transition-transform duration-300 hover:-translate-y-2 flex flex-col items-center text-center">
+                        <div class="inline-flex items-center justify-center w-14 h-14 bg-accent-green/10 text-accent-green rounded-full mb-6">
+                            <i data-lucide="shield-check" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-primary">App del Cliente</h3>
+                        <p class="text-lg font-semibold text-accent-green mt-1">(Autoservicio y Seguridad)</p>
+                        <p class="mt-4 text-secondary">
+                            Portal 24/7 para ver historial de pagos, enviar comprobantes y solicitar refinanciamiento seguro con verificación facial biométrica.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Funciones Adicionales --><section id="functions" class="py-20">
+            <div class="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-primary">
+                        Potencia y Flexibilidad Integradas
+                    </h2>
+                    <p class="mt-4 text-lg text-secondary">
+                        Todo lo que necesita para operar a nivel global, de forma segura y eficiente.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
+                    <div class="flex items-start">
+                        <i data-lucide="globe" class="w-7 h-7 text-accent-blue flex-shrink-0 mr-4"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold text-primary">Soporte Multi-Moneda</h3>
+                            <p class="mt-1 text-secondary">Configure la moneda de operación (Real, Peso, Dólar, etc.) para su mercado local.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i data-lucide="layers" class="w-7 h-7 text-accent-blue flex-shrink-0 mr-4"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold text-primary">Soporte Multi-Préstamo</h3>
+                            <p class="mt-1 text-secondary">Gestione múltiples préstamos activos y finalizados para un mismo cliente.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i data-lucide="star" class="w-7 h-7 text-accent-blue flex-shrink-0 mr-4"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold text-primary">Sistema de Reputación</h3>
+                            <p class="mt-1 text-secondary">Califica al cliente (Excelente a Malo) basándose en los días de atraso.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i data-lucide="file-check-2" class="w-7 h-7 text-accent-blue flex-shrink-0 mr-4"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold text-primary">Gestión de Documentos</h3>
+                            <p class="mt-1 text-secondary">Cargue fotos de documentos, perfiles y comprobantes al sistema.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i data-lucide="bell" class="w-7 h-7 text-accent-blue flex-shrink-0 mr-4"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold text-primary">Notificaciones Push</h3>
+                            <p class="mt-1 text-secondary">Alertas instantáneas de pagos, aprobaciones y recordatorios de mora.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i data-lucide="sun-moon" class="w-7 h-7 text-accent-blue flex-shrink-0 mr-4"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold text-primary">Modo Oscuro/Claro</h3>
+                            <p class="mt-1 text-secondary">Interfaz adaptada para comodidad visual en cualquier entorno.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i data-lucide="languages" class="w-7 h-7 text-accent-blue flex-shrink-0 mr-4"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold text-primary">Multi-Idioma</h3>
+                            <p class="mt-1 text-secondary">Soporte nativo para Portugués, Español e Inglés en todas las apps.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i data-lucide="download-cloud" class="w-7 h-7 text-accent-blue flex-shrink-0 mr-4"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold text-primary">PWA (App Instalable)</h3>
+                            <p class="mt-1 text-secondary">Las tres aplicaciones pueden instalarse en el dispositivo como una app nativa.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <i data-lucide="settings-2" class="w-7 h-7 text-accent-blue flex-shrink-0 mr-4"></i>
+                        <div>
+                            <h3 class="text-xl font-semibold text-primary">Configuración de Pagos</h3>
+                            <p class="mt-1 text-secondary">El cobrador configura sus métodos de pago (PIX, QR) que se muestran en la app del cliente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Auditoría y Conclusión (CTA) --><section id="contact" class="py-20 bg-surface">
+            <div class="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <span class="text-accent-blue font-semibold">SEGURIDAD GARANTIZADA</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-primary mt-3">
+                            Auditoría y Robustez de Nivel Superior
+                        </h2>
+                        <p class="mt-6 text-lg text-secondary">
+                            LUMIX se ha sometido a rigurosas auditorías de seguridad y pruebas de estrés por parte de auditores de ciberseguridad independientes.
+                        </p>
+                        <p class="mt-4 text-lg text-secondary">
+                            Nuestra infraestructura garantiza una disponibilidad del 99.99% y es 100% robusta contra ataques maliciosos, protegiendo su operación y los datos de sus clientes 24/7.
+                        </p>
+                    </div>
+                    <div class="bg-bg border border-borderColor rounded-xl p-8 text-center">
+                        <h3 class="text-2xl font-bold text-primary">LUMIX no es solo un software de cobranzas.</h3>
+                        <p class="mt-4 text-lg text-secondary">
+                            Es la infraestructura completa, segura e inteligente que su negocio necesita para crecer, reducir riesgos y operar con la máxima eficiencia.
+                        </p>
+                        <a href="https://wa.me/551152862580" target="_blank" rel="noopener noreferrer" class="mt-8 inline-block bg-accent-purple hover:bg-accent-purple-darker text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-lg text-lg">
+                            Solicite una Demo Hoy Mismo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer --><footer class="border-t border-borderColor">
+        <div class="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-8 py-12 text-center">
+            <img class="h-10 w-auto mx-auto mb-4" src="https://firebasestorage.googleapis.com/v0/b/lumix-financas-app.firebasestorage.app/o/LOGO---LUMIX-FINANZAS-REDUCIDO.png?alt=media&token=0b4c34d2-f2e3-44b3-a380-7aadfb9c0991" alt="LUMIX Logo">
+            <p class="text-secondary">
+                &copy; 2025 LUMIX Finanzas. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // --- INICIO: Animación de Fondo del Hero ---
+        const heroCanvas = document.getElementById('hero-background-canvas');
+        const heroCtx = heroCanvas.getContext('2d');
+        const heroSection = document.getElementById('hero-section');
+        let heroParticlesArray = [];
+
+        // --- INICIO: Animación de Fondo de Security ---
+        const securityCanvas = document.getElementById('security-background-canvas');
+        const securityCtx = securityCanvas.getContext('2d');
+        const securitySection = document.getElementById('security');
+        let securityParticlesArray = [];
+
+        // Colores de la paleta de la marca (extraídos de tu CSS)
+        const colors = ["#3b82f6", "#6f42c1", "#22c55e", "#ef4444"]; // Añadido danger-color para más variedad
+
+        class Particle {
+            constructor(canvas, context, densityMultiplier = 1) {
+                this.canvas = canvas;
+                this.ctx = context;
+                this.x = Math.random() * this.canvas.width;
+                this.y = Math.random() * this.canvas.height;
+                this.size = Math.random() * 2 + 1; // Tamaño pequeño
+                this.speedX = (Math.random() * 2 - 1) * 0.5 * densityMultiplier; // Movimiento lento
+                this.speedY = (Math.random() * 2 - 1) * 0.5 * densityMultiplier; // Movimiento lento
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+            update() {
+                // Rebotar en los bordes
+                if (this.x > this.canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > this.canvas.height || this.y < 0) this.speedY *= -1;
+                this.x += this.speedX;
+                this.y += this.speedY;
+            }
+            draw() {
+                this.ctx.fillStyle = this.color;
+                this.ctx.beginPath();
+                this.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                this.ctx.fill();
+            }
+        }
+
+        function resizeCanvas(canvasElement, sectionElement) {
+            if (sectionElement && canvasElement) {
+                canvasElement.width = sectionElement.clientWidth;
+                canvasElement.height = sectionElement.clientHeight;
+            }
+        }
+
+        function initParticles(canvasElement, context, particlesArrayRef, densityMultiplier) {
+            particlesArrayRef.length = 0; // Limpiar array existente
+            let numberOfParticles = (canvasElement.width * canvasElement.height) / (10000 * densityMultiplier);
+            if (numberOfParticles > 150 / densityMultiplier) numberOfParticles = 150 / densityMultiplier; // Límite ajustable
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArrayRef.push(new Particle(canvasElement, context, densityMultiplier));
+            }
+        }
+
+        function connectParticles(canvasElement, context, particlesArrayRef) {
+            let maxDistance = 100; // Distancia máxima para conectar
+            for (let a = 0; a < particlesArrayRef.length; a++) {
+                for (let b = a + 1; b < particlesArrayRef.length; b++) {
+                    let dx = particlesArrayRef[a].x - particlesArrayRef[b].x;
+                    let dy = particlesArrayRef[a].y - particlesArrayRef[b].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < maxDistance) {
+                        context.strokeStyle = `rgba(148, 163, 184, ${1 - distance / maxDistance})`;
+                        context.lineWidth = 0.5;
+                        context.beginPath();
+                        context.moveTo(particlesArrayRef[a].x, particlesArrayRef[a].y);
+                        context.lineTo(particlesArrayRef[b].x, particlesArrayRef[b].y);
+                        context.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateCanvas(canvasElement, context, particlesArrayRef) {
+            context.clearRect(0, 0, canvasElement.width, canvasElement.height);
+            for (let i = 0; i < particlesArrayRef.length; i++) {
+                particlesArrayRef[i].update();
+                particlesArrayRef[i].draw();
+            }
+            connectParticles(canvasElement, context, particlesArrayRef);
+            requestAnimationFrame(() => animateCanvas(canvasElement, context, particlesArrayRef));
+        }
+
+        // --- Lógica de ejecución de las animaciones ---
+        function startAnimations() {
+            // Animación del Hero
+            if (heroSection && heroCanvas) {
+                resizeCanvas(heroCanvas, heroSection);
+                initParticles(heroCanvas, heroCtx, heroParticlesArray, 1); // Densidad normal para el hero
+                animateCanvas(heroCanvas, heroCtx, heroParticlesArray);
+
+                window.addEventListener('resize', () => {
+                    resizeCanvas(heroCanvas, heroSection);
+                    initParticles(heroCanvas, heroCtx, heroParticlesArray, 1);
+                });
+            }
+
+            // Animación de Security
+            if (securitySection && securityCanvas) {
+                resizeCanvas(securityCanvas, securitySection);
+                initParticles(securityCanvas, securityCtx, securityParticlesArray, 2); // Menos densidad (multiplier 2)
+                animateCanvas(securityCanvas, securityCtx, securityParticlesArray);
+
+                window.addEventListener('resize', () => {
+                    resizeCanvas(securityCanvas, securitySection);
+                    initParticles(securityCanvas, securityCtx, securityParticlesArray, 2);
+                });
+            }
+        }
+        
+        startAnimations(); // Iniciar todas las animaciones al cargar
+        // --- FIN: Animaciones de Fondo ---
+
+
+        // Inicializar Lucide Icons
+        lucide.createIcons();
+
+        // Lógica del Menú Móvil
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuButton.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            mobileMenu.classList.toggle('hidden', !isHidden);
+            menuButton.innerHTML = isHidden ? '<i data-lucide="x" class="block h-6 w-6"></i>' : '<i data-lucide="menu" class="block h-6 w-6"></i>';
+            lucide.createIcons();
+        });
+
+        // Cerrar menú móvil al hacer clic en un enlace
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuButton.innerHTML = '<i data-lucide="menu" class="block h-6 w-6"></i>';
+                lucide.createIcons();
+            });
+        });
+    </script>
+</body>
+</html>
