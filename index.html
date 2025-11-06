@@ -217,16 +217,24 @@
                         </p>
                     </div>
 
-                    <!-- 1. Blacklist --><div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
-                        <div class="flex flex-col items-center text-center">
+                    <!-- 
+                        MODIFICACIÓN: 
+                        He eliminado la estructura repetitiva de "texto a la izquierda, imagen a la derecha".
+                        En su lugar, he creado una única cuadrícula (grid) 2x2 que organiza las 4 funciones 
+                        de forma limpia y profesional, manteniendo los iconos que ya tenías sobre los títulos.
+                        Las listas de características ahora se alinean a la izquierda para mejor legibilidad.
+                    -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20">
+
+                        <!-- 1. Blacklist --><div class="flex flex-col items-center text-center">
                             <div class="inline-flex items-center justify-center w-20 h-20 bg-danger-color/10 text-danger-color rounded-full mb-6 ring-2 ring-danger-color/30">
                                 <i data-lucide="shield-off" class="w-12 h-12"></i>
                             </div>
                             <h3 class="text-2xl font-bold text-primary">1. Sistema de Lista Negra (Blacklist) Global</h3>
-                            <p class="mt-4 text-lg text-secondary">
+                            <p class="mt-4 text-lg text-secondary max-w-lg">
                                 Nuestra diferenciación más poderosa. LUMIX protege activamente su capital de estafadores y clientes morosos conocidos en todo el ecosistema.
                             </p>
-                            <ul class="mt-6 space-y-4 text-secondary">
+                            <ul class="mt-6 space-y-4 text-secondary text-left max-w-md">
                                 <li class="flex items-start">
                                     <i data-lucide="database" class="w-5 h-5 text-accent-blue mr-3 flex-shrink-0 mt-1"></i>
                                     <span><strong>Base de Datos Global:</strong> Alimentada con miles de registros de clientes reportados por fraude o morosidad grave por otras empresas.</span>
@@ -237,21 +245,16 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="order-first lg:order-last flex justify-center items-center">
-                            <i data-lucide="shield-x" class="w-40 h-40 text-danger-color opacity-30"></i>
-                        </div>
-                    </div>
-
-                    <!-- 2. Reconocimiento Facial --><div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
-                        <div class="flex flex-col items-center text-center">
+                        
+                        <!-- 2. Reconocimiento Facial --><div class="flex flex-col items-center text-center">
                             <div class="inline-flex items-center justify-center w-20 h-20 bg-accent-blue/10 text-accent-blue rounded-full mb-6 ring-2 ring-accent-blue/30">
                                 <i data-lucide="scan-face" class="w-12 h-12"></i>
                             </div>
                             <h3 class="text-2xl font-bold text-primary">2. Verificación por Reconocimiento Facial (Prueba de Vida)</h3>
-                            <p class="mt-4 text-lg text-secondary">
+                            <p class="mt-4 text-lg text-secondary max-w-lg">
                                 Combatimos el fraude de identidad con verificación biométrica de dos pasos para solicitudes de nuevos préstamos o refinanciamiento.
                             </p>
-                            <ul class="mt-6 space-y-4 text-secondary">
+                            <ul class="mt-6 space-y-4 text-secondary text-left max-w-md">
                                 <li class="flex items-start">
                                     <i data-lucide="camera" class="w-5 h-5 text-accent-blue mr-3 flex-shrink-0 mt-1"></i>
                                     <span><strong>Foto Base y Desafío:</strong> El cliente debe tomar una "Foto Base" en su primer login y completar un "Desafío de Selfie" (ej. sonreír) para nuevas solicitudes.</span>
@@ -262,21 +265,16 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="order-first lg:order-last flex justify-center items-center">
-                            <i data-lucide="fingerprint" class="w-40 h-40 text-accent-blue opacity-30"></i>
-                        </div>
-                    </div>
 
-                    <!-- 3. GPS Avanzado --><div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
-                        <div class="flex flex-col items-center text-center">
+                        <!-- 3. GPS Avanzado --><div class="flex flex-col items-center text-center">
                             <div class="inline-flex items-center justify-center w-20 h-20 bg-accent-green/10 text-accent-green rounded-full mb-6 ring-2 ring-accent-green/30">
                                 <i data-lucide="map-pin" class="w-12 h-12"></i>
                             </div>
                             <h3 class="text-2xl font-bold text-primary">3. Control y Optimización por GPS Avanzado</h3>
-                            <p class="mt-4 text-lg text-secondary">
+                            <p class="mt-4 text-lg text-secondary max-w-lg">
                                 Nuestra solución GPS es dual: ofrece control total al administrador y rutas inteligentes al cobrador.
                             </p>
-                            <ul class="mt-6 space-y-4 text-secondary">
+                            <ul class="mt-6 space-y-4 text-secondary text-left max-w-md">
                                 <li class="flex items-start">
                                     <i data-lucide="map" class="w-5 h-5 text-accent-blue mr-3 flex-shrink-0 mt-1"></i>
                                     <span><strong>Control Total (Admin):</strong> Vea la ubicación exacta de todo su equipo en un mapa en vivo y tome decisiones estratégicas.</span>
@@ -287,21 +285,16 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="order-first lg:order-last flex justify-center items-center">
-                            <i data-lucide="route" class="w-40 h-40 text-accent-green opacity-30"></i>
-                        </div>
-                    </div>
 
-                    <!-- 4. Comunidad Interna --><div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        <div class="flex flex-col items-center text-center">
+                        <!-- 4. Comunidad Interna --><div class="flex flex-col items-center text-center">
                             <div class="inline-flex items-center justify-center w-20 h-20 bg-accent-purple/10 text-accent-purple rounded-full mb-6 ring-2 ring-accent-purple/30">
                                 <i data-lucide="users" class="w-12 h-12"></i>
                             </div>
                             <h3 class="text-2xl font-bold text-primary">4. Comunidad Interna y Ecosistema Seguro</h3>
-                            <p class="mt-4 text-lg text-secondary">
+                            <p class="mt-4 text-lg text-secondary max-w-lg">
                                 Incluimos una red social privada y exclusiva para administradores de todas las empresas que utilizan LUMIX, transformando la competencia en colaboración de seguridad.
                             </p>
-                            <ul class="mt-6 space-y-4 text-secondary">
+                            <ul class="mt-6 space-y-4 text-secondary text-left max-w-md">
                                 <li class="flex items-start">
                                     <i data-lucide="message-square" class="w-5 h-5 text-accent-blue mr-3 flex-shrink-0 mt-1"></i>
                                     <span><strong>Muro Interactivo:</strong> Publique avisos de fraude, comparta comunicados, comente y dé "like" a las publicaciones de otros administradores.</span>
@@ -312,17 +305,73 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="order-first lg:order-last flex justify-center items-center">
-                            <i data-lucide="network" class="w-40 h-40 text-accent-purple opacity-30"></i>
-                        </div>
-                    </div>
+                        
+                    </div> <!-- Fin del nuevo grid 2x2 -->
+
 
                 </div>
             </div>
         </section>
 
-        <!-- Ecosistema de 3 Apps --><section id="ecosystem" class="py-20 bg-surface border-y border-borderColor">
+        <!-- ========= INICIO NUEVA SECCIÓN: VIDEO INTRODUCTORIO ========= -->
+        <section id="video-intro" class="py-20">
             <div class="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-8">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+                    <!-- Columna 1: Texto Y AHORA MASCOTA -->
+                    <!-- MODIFICADO: Añadido flex-col y items-center/start para apilar texto y mascota -->
+                    <div class="flex flex-col items-center lg:items-start text-center lg:text-left">
+                        <span class="text-accent-purple font-semibold">VEA CÓMO FUNCIONA</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-primary mt-3">
+                            Una Plataforma Intuitiva y Poderosa
+                        </h2>
+                        <p class="mt-6 text-lg text-secondary max-w-xl mx-auto lg:mx-0">
+                            Descubra en menos de 60 segundos cómo nuestra plataforma transforma la gestión de cobranzas. Vea la fluidez, el control y la seguridad que LUMIX ofrece a su equipo y a sus clientes.
+                        </p>
+                        <!-- MODIFICADO: Botón eliminado -->
+                        
+                        <!-- MODIFICADO: Mascota 2 movida aquí abajo, con margen superior -->
+                        <img src="https://firebasestorage.googleapis.com/v0/b/lumix-financas-app.firebasestorage.app/o/Mascote-3.png?alt=media&token=a0ceef16-19b7-4501-9860-436cdc15cc9a" 
+                             alt="Mascota Lumix Finanzas 2" 
+                             class="w-full max-w-xs h-auto mt-12">
+                    </div>
+
+                    <!-- Columna 2: Video Vertical (sin mascota) -->
+                    <!-- MODIFICADO: Añadido flex items-center justify-center para centrar el video -->
+                    <div class="flex items-center justify-center">
+                        
+                        <!-- Contenedor del Video (simulando un teléfono) -->
+                        <!-- MODIFICACIÓN: Aumentado el tamaño del video de max-w-sm a max-w-lg -->
+                        <div class="w-full max-w-lg bg-surface border-4 border-borderColor rounded-3xl shadow-2xl p-2 mx-auto">
+                            <!-- MODIFICADO: Aspect Ratio a 165% (1782/1080) -->
+                            <div class="relative w-full overflow-hidden rounded-xl" style="padding-top: 165%;"> <!-- 1782 / 1080 * 100 -->
+                                <!-- MODIFICADO: Reemplazado iFrame de YouTube por tag <video> -->
+                                <!-- MODIFICACIÓN: Añadido id="intro-video" para control de audio -->
+                                <video 
+                                    id="intro-video"
+                                    src="https://firebasestorage.googleapis.com/v0/b/lumix-financas-app.firebasestorage.app/o/VIDEO%20PROMO%201.mp4?alt=media&token=0f26b950-e00b-456b-a168-5a517e49d136" 
+                                    controls 
+                                    loop 
+                                    autoplay 
+                                    muted 
+                                    playsinline
+                                    class="w-full h-full absolute top-0 left-0 object-cover rounded-xl">
+                                    Tu navegador no soporta el video.
+                                </video>
+                            </div>
+                        </div>
+
+                        <!-- MODIFICADO: Mascota 2 eliminada de esta columna -->
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- ========= FIN NUEVA SECCIÓN: VIDEO INTRODUCTORIO ========= -->
+
+
+        <!-- Ecosistema de 3 Apps -->
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-extrabold text-primary">
                         Un Ecosistema Integral de 3 Aplicaciones
@@ -626,6 +675,44 @@
                 lucide.createIcons();
             });
         });
+
+        // --- INICIO: Lógica de Audio de Video por Scroll (Intersection Observer) ---
+        // Esta función detecta si el video está en pantalla para activar/desactivar el audio.
+        function setupVideoAudioObserver() {
+            const introVideo = document.getElementById('intro-video');
+            if (!introVideo) {
+                return; // No hacer nada si el video no existe
+            }
+
+            // Opciones: 0.5 = 50% del video debe estar visible para activar.
+            const observerOptions = {
+                root: null, // usa el viewport
+                rootMargin: '0px',
+                threshold: 0.5 // 50% del video visible
+            };
+
+            const audioObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // El video está visible, activar audio
+                        introVideo.muted = false;
+                        // Asegurarse de que se esté reproduciendo (si el autoplay falló)
+                        introVideo.play().catch(e => console.log("Reproducción automática con audio bloqueada por el navegador."));
+                    } else {
+                        // El video ya no es visible, silenciar audio
+                        introVideo.muted = true;
+                    }
+                });
+            }, observerOptions);
+
+            // Iniciar la observación del video
+            audioObserver.observe(introVideo);
+        }
+
+        // Llamar a la nueva función al cargar la página
+        setupVideoAudioObserver();
+        // --- FIN: Lógica de Audio de Video por Scroll ---
+
     </script>
 </body>
 </html>
