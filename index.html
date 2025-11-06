@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LUMIX Finanzas - Plataforma de Gestión de Cobranzas</title>
     
+    <!-- Favicon -->
+    <link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/lumix-financas-app.firebasestorage.app/o/LOGO---LUMIX-FINANZAS-REDUCIDO.png?alt=media&token=0b4c34d2-f2e3-44b3-a380-7aadfb9c0991" type="image/png">
+    
+    <!-- Meta Tags para Miniatura (Open Graph) -->
+    <meta property="og:title" content="LUMIX Finanzas - Plataforma de Gestión de Cobranzas">
+    <meta property="og:description" content="La Nueva Era de la Gestión de Cobranzas. Sofisticado, seguro y diseñado para maximizar su rentabilidad.">
+    <meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/lumix-financas-app.firebasestorage.app/o/Miniatura---WEB.jpg?alt=media&token=d175ed1e-9fa0-4887-b7a9-adce82f1f565">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
     <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Lucide Icons --><script src="https://unpkg.com/lucide@latest"></script>
@@ -320,13 +330,14 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
                     <!-- Columna 1: Texto Y AHORA MASCOTA -->
-                    <!-- MODIFICADO: Añadido flex-col y items-center/start para apilar texto y mascota -->
-                    <div class="flex flex-col items-center lg:items-start text-center lg:text-left">
+                    <!-- MODIFICADO: Eliminadas clases lg:items-start y lg:text-left -->
+                    <div class="flex flex-col items-center text-center">
                         <span class="text-accent-purple font-semibold">VEA CÓMO FUNCIONA</span>
                         <h2 class="text-3xl md:text-4xl font-extrabold text-primary mt-3">
                             Una Plataforma Intuitiva y Poderosa
                         </h2>
-                        <p class="mt-6 text-lg text-secondary max-w-xl mx-auto lg:mx-0">
+                        <!-- MODIFICADO: Eliminada clase lg:mx-0 del párrafo -->
+                        <p class="mt-6 text-lg text-secondary max-w-xl mx-auto">
                             Descubra en menos de 60 segundos cómo nuestra plataforma transforma la gestión de cobranzas. Vea la fluidez, el control y la seguridad que LUMIX ofrece a su equipo y a sus clientes.
                         </p>
                         <!-- MODIFICADO: Botón eliminado -->
@@ -334,7 +345,7 @@
                         <!-- MODIFICADO: Mascota 2 movida aquí abajo, con margen superior -->
                         <img src="https://firebasestorage.googleapis.com/v0/b/lumix-financas-app.firebasestorage.app/o/Mascote-3.png?alt=media&token=a0ceef16-19b7-4501-9860-436cdc15cc9a" 
                              alt="Mascota Lumix Finanzas 2" 
-                             class="w-full max-w-xs h-auto mt-12">
+                             class="w-full max-w-[10rem] lg:max-w-xs h-auto mt-14">
                     </div>
 
                     <!-- Columna 2: Video Vertical (sin mascota) -->
